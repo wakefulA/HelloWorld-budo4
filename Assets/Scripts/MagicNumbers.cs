@@ -17,6 +17,11 @@ public class MagicNumbers : MonoBehaviour
     
     private int _guess;
 
+    private int _moveamount = 0;
+    
+    
+    
+  
     private void Start()
     {
 
@@ -64,6 +69,7 @@ public class MagicNumbers : MonoBehaviour
         SetInfoText("Число больше");
         _min = _guess;
         CalculateGuess();
+        _moveamount++;
     }
 
     private void LessButtonClicked()
@@ -71,11 +77,31 @@ public class MagicNumbers : MonoBehaviour
         SetInfoText("Число меньше");
         _max = _guess;
         CalculateGuess();
+        _moveamount ++;
     }
 
     private void FinishButtonClicked()
     {
-        SetInfoText($"Победа: твоё число {_guess}");
+        SetInfoText($"Победа: твоё число {_guess}, количество шагов {_moveamount}");
+
+        _guess = 0;
+        _min = 0;
+        _max = 0;
+
     }
-    }
+}
+
+
+
+   
+
+
+
+ 
+
+
+
+
+
+ 
 
