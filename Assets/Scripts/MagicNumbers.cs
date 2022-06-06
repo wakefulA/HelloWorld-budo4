@@ -1,7 +1,6 @@
-using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MagicNumbers : MonoBehaviour
@@ -16,9 +15,7 @@ public class MagicNumbers : MonoBehaviour
     public Button LessButton;
     
     private int _guess;
-
-    private int _moveamount = 0;
-    
+    private int _moveamount = 0 ;
     
     
   
@@ -28,65 +25,65 @@ public class MagicNumbers : MonoBehaviour
         MoreButton.onClick.AddListener(MoreButtonClicked);
         FinishButton.onClick.AddListener(FinishButtonClicked);
         LessButton.onClick.AddListener(LessButtonClicked);
-        _min = 1;
-        _max = 1000;
-
         
         SetInfoText(($"Загадай число от {_min} до {_max}."));
         CalculateGuess();
-    
-    }
-
-    private void Update()
-    {
         
     }
+    
+    
+
 
     private void CalculateGuess()
     {
         _guess = (_min + _max) / 2;
-
-        SetInfoText($"Твоё число: {_guess}?");
+        
+        SetInfoText($"Твоё число: {_guess}?, количество шагов {_moveamount}");
+        
     }
-
+    
+    
     private void SetInfoText (string text)
     {
         Debug.Log(text);
-
         InfoLabel.text = text; 
     }
 
     private void SetGuessText(string text)
     {
         Debug.Log(text);
-
         InfoGuess.text = text; 
     }
 
 
     private void MoreButtonClicked()
     {
-        SetInfoText("Число больше");
+        _moveamount++;
+        SetInfoText($"Число больше, количество шагов {_moveamount}");
         _min = _guess;
         CalculateGuess();
-        _moveamount++;
+        
     }
 
     private void LessButtonClicked()
     {
-        SetInfoText("Число меньше");
+        _moveamount ++;
+        SetInfoText($"Число меньше, количество шагов {_moveamount}");
         _max = _guess;
         CalculateGuess();
-        _moveamount ++;
+        
     }
 
     private void FinishButtonClicked()
     {
-        SetInfoText($"Победа: твоё число {_guess}, количество шагов {_moveamount}");
+        ScoreManager.Instance.Score = $"Победа: твоё число {_guess}, количество шагов {_moveamount}";
+        //SetInfoText($"Победа: твоё число {_guess}, количество шагов {_moveamount}");
 
-        _guess = 0;
-        _min = 0;
-        _max = 0;
+        //_guess = 0;
+        //_min = 0;
+        //_max = 0;
+
+        SceneManager.LoadScene(2);
 
     }
 }
